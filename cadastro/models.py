@@ -7,21 +7,22 @@ class Animal(models.Model):
         ('M', 'Macho'),
         ('F', 'Fêmea'),
     ]
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
-    age = models.PositiveIntegerField()
-    ear_tag_number = models.CharField(max_length=50)
-    mother_ear_tag_number = models.CharField(max_length=50)
+    sex = models.CharField('sexo', max_length=1, choices=SEX_CHOICES)
+    age = models.PositiveIntegerField('idade')
+    ear_tag_number = models.CharField('nº do brinco', max_length=50)
+    mother_ear_tag_number = models.CharField('nº do brinco da mãe', max_length=50)
+    birth_date = models.DateField('data de nascimento', blank=True, null=True)
 
     def __str__(self):
         return f"{self.ear_tag_number} ({self.get_sex_display()})"
 
 
 class Vaccine(models.Model):
-    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    application_date = models.DateField()
-    second_dose = models.BooleanField(default=False)
-    second_dose_date = models.DateField(blank=True, null=True)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name='animal')
+    name = models.CharField('nome', max_length=100)
+    application_date = models.DateField('data de aplicação')
+    second_dose = models.BooleanField('segunda dose', default=False)
+    second_dose_date = models.DateField('data da segunda dose', blank=True, null=True)
 
     def clean(self):
         if self.second_dose and not self.second_dose_date:

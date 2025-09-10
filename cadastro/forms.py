@@ -5,12 +5,20 @@ from .models import Animal, Vaccine
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number']
+        fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number', 'birth_date']
         widgets = {
             'sex': forms.Select(attrs={'class': 'form-select'}),
             'age': forms.NumberInput(attrs={'class': 'form-control'}),
             'ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'mother_ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+        labels = {
+            'sex': 'Sexo',
+            'age': 'Idade',
+            'ear_tag_number': 'Nº do brinco',
+            'mother_ear_tag_number': 'Nº do brinco da mãe',
+            'birth_date': 'Data de nascimento',
         }
 
 
@@ -23,6 +31,12 @@ class VaccineForm(forms.ModelForm):
             'application_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'second_dose': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'second_dose_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+        labels = {
+            'name': 'Nome da vacina',
+            'application_date': 'Data de aplicação',
+            'second_dose': 'Segunda dose?',
+            'second_dose_date': 'Data da segunda dose',
         }
 
     def clean(self):
