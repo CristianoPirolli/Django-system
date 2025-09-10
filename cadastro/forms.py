@@ -8,7 +8,7 @@ class AnimalForm(forms.ModelForm):
         fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number', 'birth_date']
         widgets = {
             'sex': forms.Select(attrs={'class': 'form-select'}),
-            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'mother_ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),

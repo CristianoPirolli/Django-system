@@ -14,4 +14,25 @@
         </form>
     </div>
 </div>
+<script>
+    function calcularIdade() {
+        const birthInput = document.getElementById('id_birth_date');
+        const ageInput = document.getElementById('id_age');
+        if (birthInput && ageInput && birthInput.value) {
+            const nasc = new Date(birthInput.value);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - nasc.getFullYear();
+            const m = hoje.getMonth() - nasc.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+                idade--;
+            }
+            ageInput.value = idade;
+        }
+    }
+    const birthField = document.getElementById('id_birth_date');
+    if (birthField) {
+        birthField.addEventListener('change', calcularIdade);
+        window.addEventListener('load', calcularIdade);
+    }
+</script>
 {% endblock %}
