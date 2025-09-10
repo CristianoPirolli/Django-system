@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Novo Animal</title>
+</head>
+<body>
+<h1>Novo Animal</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+</form>
+<a href="{% url 'animal_list' %}">Voltar</a>
+</body>
+</html>

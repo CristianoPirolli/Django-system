@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ animal }}</title>
+</head>
+<body>
+<h1>{{ animal }}</h1>
+<p>Sexo: {{ animal.get_sex_display }}</p>
+<p>Idade: {{ animal.age }}</p>
+<p>Nº do brinco: {{ animal.ear_tag_number }}</p>
+<p>Nº do brinco da mãe: {{ animal.mother_ear_tag_number }}</p>
+
+<h2>Vacinas</h2>
+<a href="{% url 'vaccine_add' animal.pk %}">Adicionar Vacina</a>
+<ul>
+{% for vaccine in vaccines %}
+    <li>{{ vaccine.name }} - {{ vaccine.application_date }}{% if vaccine.second_dose %} (2ª dose: {{ vaccine.second_dose_date }}){% endif %}</li>
+{% empty %}
+    <li>Nenhuma vacina registrada.</li>
+{% endfor %}
+</ul>
+<a href="{% url 'animal_list' %}">Voltar</a>
+</body>
+</html>
