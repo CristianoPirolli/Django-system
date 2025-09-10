@@ -1,0 +1,113 @@
+#:kivy 2.1.0
+
+<AnimalListScreen>:
+    name: 'animals'
+    BoxLayout:
+        orientation: 'vertical'
+        ScrollView:
+            GridLayout:
+                id: animal_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+        Button:
+            text: 'Adicionar Animal'
+            size_hint_y: None
+            height: '48dp'
+            on_release:
+                root.manager.current = 'add_animal'
+
+<AddAnimalScreen>:
+    name: 'add_animal'
+    sexo_input: sexo
+    idade_input: idade
+    brinco_input: brinco
+    brinco_mae_input: brinco_mae
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: sexo
+            hint_text: 'Sexo'
+        TextInput:
+            id: idade
+            hint_text: 'Idade'
+        TextInput:
+            id: brinco
+            hint_text: 'Nº do brinco'
+        TextInput:
+            id: brinco_mae
+            hint_text: 'Nº do brinco da mãe'
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            Button:
+                text: 'Salvar'
+                on_release: root.save_animal()
+            Button:
+                text: 'Cancelar'
+                on_release: root.manager.current = 'animals'
+
+<VaccineListScreen>:
+    name: 'vaccines'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            size_hint_y: None
+            height: '40dp'
+            text: 'Animal: ' + (app.current_animal['brinco'] if app.current_animal else '')
+        ScrollView:
+            GridLayout:
+                id: vaccine_list
+                cols:1
+                size_hint_y: None
+                height: self.minimum_height
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            Button:
+                text: 'Adicionar Vacina'
+                on_release: root.manager.current = 'add_vaccine'
+            Button:
+                text: 'Voltar'
+                on_release: root.manager.current = 'animals'
+
+<AddVaccineScreen>:
+    name: 'add_vaccine'
+    vaccine_name: vaccine_name
+    application_date: application_date
+    second_dose: second_dose
+    second_date: second_date
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: vaccine_name
+            hint_text: 'Nome da vacina'
+        TextInput:
+            id: application_date
+            hint_text: 'Data de aplicação'
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            Label:
+                text: 'Segunda dose?'
+            CheckBox:
+                id: second_dose
+                active: False
+        TextInput:
+            id: second_date
+            hint_text: 'Data da segunda dose'
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            Button:
+                text: 'Salvar'
+                on_release: root.save_vaccine()
+            Button:
+                text: 'Cancelar'
+                on_release: root.manager.current = 'vaccines'
+
+RootWidget:
+    AnimalListScreen:
+    AddAnimalScreen:
+    VaccineListScreen:
+    AddVaccineScreen:
