@@ -24,6 +24,15 @@ class AnimalForm(forms.ModelForm):
             'weigh_date': 'Data da pesagem',
         }
 
+    def clean_weight(self):
+        weight = self.cleaned_data.get('weight')
+        if weight is None:
+            return weight
+        try:
+            return float(str(weight).replace(',', '.'))
+        except (TypeError, ValueError):
+            raise forms.ValidationError('Informe um número válido para o peso')
+
 
 VACCINE_CHOICES = [
     ('Aftosa', 'Aftosa'),

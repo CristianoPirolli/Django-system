@@ -14,7 +14,7 @@ Aplicação web em Django para cadastro de animais bovinos e controle de vacinas
    python manage.py runserver
    ```
 
-A aplicação permite cadastrar animais com sexo, idade, data de nascimento, número do brinco, número do brinco da mãe, peso e data de pesagem. Cada animal pode ter múltiplas vacinas associadas com nome, data de aplicação e, opcionalmente, uma segunda dose com data correspondente.
+A aplicação permite cadastrar animais com sexo, idade, data de nascimento, número do brinco, número do brinco da mãe, peso e data de pesagem. O peso aceita ponto ou vírgula como separador decimal. Cada animal pode ter múltiplas vacinas associadas com nome, data de aplicação e, opcionalmente, uma segunda dose com data correspondente.
 
 Os registros de animais podem ser consultados, editados e removidos, assim como as vacinas associadas a cada um.
 
