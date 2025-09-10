@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Animais</title>
-</head>
-<body>
-<h1>Animais</h1>
-<a href="{% url 'animal_add' %}">Adicionar Animal</a>
-<ul>
-{% for animal in animals %}
-    <li><a href="{% url 'animal_detail' animal.pk %}">{{ animal }}</a></li>
-{% empty %}
-    <li>Nenhum animal cadastrado.</li>
-{% endfor %}
+{% extends 'base.html' %}
+{% block title %}Animais{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Animais</h1>
+    <a class="btn btn-success" href="{% url 'animal_add' %}">Adicionar Animal</a>
+</div>
+{% if animals %}
+<ul class="list-group">
+    {% for animal in animals %}
+    <li class="list-group-item"><a href="{% url 'animal_detail' animal.pk %}">{{ animal }}</a></li>
+    {% endfor %}
 </ul>
-</body>
-</html>
+{% else %}
+<p>Nenhum animal cadastrado.</p>
+{% endif %}
+{% endblock %}

@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ animal }}</title>
-</head>
-<body>
-<h1>{{ animal }}</h1>
-<p>Sexo: {{ animal.get_sex_display }}</p>
-<p>Idade: {{ animal.age }}</p>
-<p>Nº do brinco: {{ animal.ear_tag_number }}</p>
-<p>Nº do brinco da mãe: {{ animal.mother_ear_tag_number }}</p>
-
-<h2>Vacinas</h2>
-<a href="{% url 'vaccine_add' animal.pk %}">Adicionar Vacina</a>
-<ul>
-{% for vaccine in vaccines %}
-    <li>{{ vaccine.name }} - {{ vaccine.application_date }}{% if vaccine.second_dose %} (2ª dose: {{ vaccine.second_dose_date }}){% endif %}</li>
-{% empty %}
-    <li>Nenhuma vacina registrada.</li>
-{% endfor %}
+{% extends 'base.html' %}
+{% block title %}{{ animal }}{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">{{ animal }}</h1>
+<ul class="list-group mb-3">
+    <li class="list-group-item"><strong>Sexo:</strong> {{ animal.get_sex_display }}</li>
+    <li class="list-group-item"><strong>Idade:</strong> {{ animal.age }}</li>
+    <li class="list-group-item"><strong>Nº do brinco:</strong> {{ animal.ear_tag_number }}</li>
+    <li class="list-group-item"><strong>Nº do brinco da mãe:</strong> {{ animal.mother_ear_tag_number }}</li>
 </ul>
-<a href="{% url 'animal_list' %}">Voltar</a>
-</body>
-</html>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2 class="h5 mb-0">Vacinas</h2>
+    <a class="btn btn-sm btn-success" href="{% url 'vaccine_add' animal.pk %}">Adicionar Vacina</a>
+</div>
+{% if vaccines %}
+<ul class="list-group">
+    {% for vaccine in vaccines %}
+    <li class="list-group-item">{{ vaccine.name }} - {{ vaccine.application_date }}{% if vaccine.second_dose %} (2ª dose: {{ vaccine.second_dose_date }}){% endif %}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Nenhuma vacina registrada.</p>
+{% endif %}
+<a class="btn btn-secondary mt-3" href="{% url 'animal_list' %}">Voltar</a>
+{% endblock %}
