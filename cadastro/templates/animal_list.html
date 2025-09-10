@@ -22,7 +22,7 @@
                 <tr>
                     <td><a href="{% url 'animal_detail' animal.pk %}">{{ animal.ear_tag_number }}</a></td>
                     <td>{{ animal.get_sex_display }}</td>
-                    <td>{{ animal.age }}</td>
+                    <td>{{ animal.age_display }}</td>
                     <td>
                         <a class="btn btn-sm btn-outline-primary" href="{% url 'animal_detail' animal.pk %}">Ver</a>
                         <a class="btn btn-sm btn-outline-secondary" href="{% url 'animal_edit' animal.pk %}">Editar</a>

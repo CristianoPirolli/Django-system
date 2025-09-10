@@ -18,4 +18,5 @@ A aplicação permite cadastrar animais com sexo, idade, data de nascimento, nú
 
 Os registros de animais podem ser consultados, editados e removidos, assim como as vacinas associadas a cada um.
 
-A idade é calculada automaticamente a partir da data de nascimento informada.
+A idade é calculada automaticamente a partir da data de nascimento informada e exibida em anos e meses de forma discreta no formulário.
+Ao cadastrar vacinas, o campo de nome oferece uma lista pré-definida com imunizações bovinas comuns.

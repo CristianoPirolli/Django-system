@@ -17,12 +17,37 @@ class Animal(models.Model):
     def __str__(self):
         return f"{self.ear_tag_number} ({self.get_sex_display()})"
 
+    def age_components(self):
+        if not self.birth_date:
+            return None, None
+        today = date.today()
+        years = today.year - self.birth_date.year
+        months = today.month - self.birth_date.month
+        if today.day < self.birth_date.day:
+            months -= 1
+        if months < 0:
+            years -= 1
+            months += 12
+        return years, months
+
+    @property
+    def age_display(self):
+        years, months = self.age_components()
+        if years is None:
+            return ''
+        parts = []
+        if years:
+            parts.append(f"{years} ano{'s' if years != 1 else ''}")
+        if months:
+            parts.append(f"{months} mês{'es' if months != 1 else ''}")
+        if not parts:
+            parts.append('0 meses')
+        return ' '.join(parts)
+
     def save(self, *args, **kwargs):
         if self.birth_date:
-            today = date.today()
-            self.age = today.year - self.birth_date.year - (
-                (today.month, today.day) < (self.birth_date.month, self.birth_date.day)
-            )
+            years, _ = self.age_components()
+            self.age = years
         super().save(*args, **kwargs)
 
 
