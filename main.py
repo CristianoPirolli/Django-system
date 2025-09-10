@@ -13,18 +13,28 @@ class AnimalListScreen(Screen):
         animal_list.clear_widgets()
         app = App.get_running_app()
         for animal in app.animals:
+            box = BoxLayout(size_hint_y=None, height='40dp')
             btn = Button(
                 text=f"{animal['brinco']} - {animal['sexo']} - {animal['idade']}",
-                size_hint_y=None,
-                height='40dp'
+                size_hint_x=0.7
             )
             btn.bind(on_release=lambda btn, a=animal: self.select_animal(a))
-            animal_list.add_widget(btn)
+            rm = Button(text='Remover', size_hint_x=0.3)
+            rm.bind(on_release=lambda btn, a=animal: self.remove_animal(a))
+            box.add_widget(btn)
+            box.add_widget(rm)
+            animal_list.add_widget(box)
 
     def select_animal(self, animal):
         app = App.get_running_app()
         app.current_animal = animal
         self.manager.current = 'vaccines'
+
+    def remove_animal(self, animal):
+        app = App.get_running_app()
+        if animal in app.animals:
+            app.animals.remove(animal)
+        self.on_pre_enter()
 
 
 class AddAnimalScreen(Screen):

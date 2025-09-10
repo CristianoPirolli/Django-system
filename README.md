@@ -10,4 +10,4 @@ Aplicativo simples em Kivy para cadastro de animais bovinos e controle de vacina
    python main.py
    ```
 
-O app permite cadastrar animais com sexo, idade, número do brinco e número do brinco da mãe. Para cada animal é possível gerenciar vacinas, incluindo nome, data de aplicação, informação sobre segunda dose e data da segunda dose.
+O app permite cadastrar e remover animais com sexo, idade, número do brinco e número do brinco da mãe. Para cada animal é possível gerenciar vacinas, incluindo nome, data de aplicação, informação sobre segunda dose e data da segunda dose.
