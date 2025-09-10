@@ -5,19 +5,23 @@ from .models import Animal, Vaccine
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number', 'birth_date']
+        fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number', 'birth_date', 'weight', 'weigh_date']
         widgets = {
             'sex': forms.Select(attrs={'class': 'form-select'}),
             'age': forms.HiddenInput(),
             'ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'mother_ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'weigh_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
         labels = {
             'sex': 'Sexo',
             'ear_tag_number': 'Nº do brinco',
             'mother_ear_tag_number': 'Nº do brinco da mãe',
             'birth_date': 'Data de nascimento',
+            'weight': 'Peso (kg)',
+            'weigh_date': 'Data da pesagem',
         }
 
 

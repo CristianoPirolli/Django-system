@@ -13,6 +13,8 @@ class Animal(models.Model):
     ear_tag_number = models.CharField('nº do brinco', max_length=50)
     mother_ear_tag_number = models.CharField('nº do brinco da mãe', max_length=50)
     birth_date = models.DateField('data de nascimento', blank=True, null=True)
+    weight = models.DecimalField('peso (kg)', max_digits=6, decimal_places=2, blank=True, null=True)
+    weigh_date = models.DateField('data de pesagem', blank=True, null=True)
 
     def __str__(self):
         return f"{self.ear_tag_number} ({self.get_sex_display()})"
