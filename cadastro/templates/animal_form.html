@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Novo Animal{% endblock %}
+{% block title %}{% if is_edit %}Editar Animal{% else %}Novo Animal{% endif %}{% endblock %}
 {% block content %}
 <div class="card shadow-sm">
     <div class="card-body">
-        <h1 class="h4 mb-4">Novo Animal</h1>
+        <h1 class="h4 mb-4">{% if is_edit %}Editar Animal{% else %}Novo Animal{% endif %}</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Salvar</button>
-                <a class="btn btn-secondary" href="{% url 'animal_list' %}">Voltar</a>
+                <a class="btn btn-secondary" href="{% if is_edit %}{% url 'animal_detail' animal.pk %}{% else %}{% url 'animal_list' %}{% endif %}">Voltar</a>
             </div>
         </form>
     </div>

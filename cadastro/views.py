@@ -16,7 +16,7 @@ def animal_create(request):
             return redirect('animal_detail', pk=animal.pk)
     else:
         form = AnimalForm()
-    return render(request, 'animal_form.html', {'form': form})
+    return render(request, 'animal_form.html', {'form': form, 'is_edit': False})
 
 
 def animal_detail(request, pk):
@@ -37,3 +37,23 @@ def vaccine_create(request, animal_pk):
     else:
         form = VaccineForm()
     return render(request, 'vaccine_form.html', {'form': form, 'animal': animal})
+
+
+def animal_edit(request, pk):
+    animal = get_object_or_404(Animal, pk=pk)
+    if request.method == 'POST':
+        form = AnimalForm(request.POST, instance=animal)
+        if form.is_valid():
+            form.save()
+            return redirect('animal_detail', pk=animal.pk)
+    else:
+        form = AnimalForm(instance=animal)
+    return render(request, 'animal_form.html', {'form': form, 'animal': animal, 'is_edit': True})
+
+
+def animal_delete(request, pk):
+    animal = get_object_or_404(Animal, pk=pk)
+    if request.method == 'POST':
+        animal.delete()
+        return redirect('animal_list')
+    return render(request, 'animal_confirm_delete.html', {'animal': animal})

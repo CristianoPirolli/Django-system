@@ -14,7 +14,7 @@
                     <th>Nº do brinco</th>
                     <th>Sexo</th>
                     <th>Idade</th>
-                    <th></th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,11 @@
                     <td><a href="{% url 'animal_detail' animal.pk %}">{{ animal.ear_tag_number }}</a></td>
                     <td>{{ animal.get_sex_display }}</td>
                     <td>{{ animal.age }}</td>
-                    <td><a class="btn btn-sm btn-outline-primary" href="{% url 'animal_detail' animal.pk %}">Ver</a></td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'animal_detail' animal.pk %}">Ver</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'animal_edit' animal.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'animal_delete' animal.pk %}">Excluir</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
