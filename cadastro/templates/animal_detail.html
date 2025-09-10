@@ -30,6 +30,7 @@
                     <th>Nome</th>
                     <th>Aplicação</th>
                     <th>2ª dose</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,10 @@
                     <td>{{ vaccine.name }}</td>
                     <td>{{ vaccine.application_date }}</td>
                     <td>{% if vaccine.second_dose %}{{ vaccine.second_dose_date }}{% else %}-{% endif %}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'vaccine_edit' animal.pk vaccine.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'vaccine_delete' animal.pk vaccine.pk %}">Excluir</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

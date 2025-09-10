@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Animal
+from .models import Animal, Vaccine
 from .forms import AnimalForm, VaccineForm
 
 
@@ -36,7 +36,27 @@ def vaccine_create(request, animal_pk):
             return redirect('animal_detail', pk=animal.pk)
     else:
         form = VaccineForm()
-    return render(request, 'vaccine_form.html', {'form': form, 'animal': animal})
+    return render(request, 'vaccine_form.html', {'form': form, 'animal': animal, 'is_edit': False})
+
+
+def vaccine_edit(request, animal_pk, pk):
+    vaccine = get_object_or_404(Vaccine, pk=pk, animal_id=animal_pk)
+    if request.method == 'POST':
+        form = VaccineForm(request.POST, instance=vaccine)
+        if form.is_valid():
+            form.save()
+            return redirect('animal_detail', pk=animal_pk)
+    else:
+        form = VaccineForm(instance=vaccine)
+    return render(request, 'vaccine_form.html', {'form': form, 'animal': vaccine.animal, 'is_edit': True})
+
+
+def vaccine_delete(request, animal_pk, pk):
+    vaccine = get_object_or_404(Vaccine, pk=pk, animal_id=animal_pk)
+    if request.method == 'POST':
+        vaccine.delete()
+        return redirect('animal_detail', pk=animal_pk)
+    return render(request, 'vaccine_confirm_delete.html', {'vaccine': vaccine})
 
 
 def animal_edit(request, pk):

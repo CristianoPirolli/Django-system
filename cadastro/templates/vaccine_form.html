@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}Nova Vacina{% endblock %}
+{% block title %}{% if is_edit %}Editar Vacina{% else %}Nova Vacina{% endif %}{% endblock %}
 {% block content %}
 <div class="card shadow-sm">
     <div class="card-body">
-        <h1 class="h4 mb-4">Nova Vacina para {{ animal }}</h1>
+        <h1 class="h4 mb-4">{% if is_edit %}Editar Vacina{% else %}Nova Vacina para {{ animal }}{% endif %}</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
