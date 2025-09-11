@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Animais{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Animais</h1>
+    <a class="btn btn-success" href="{% url 'animal_add' %}">Adicionar Animal</a>
+</div>
+{% if animals %}
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Nº do brinco</th>
+                    <th>Sexo</th>
+                    <th>Idade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for animal in animals %}
+                <tr>
+                    <td><a href="{% url 'animal_detail' animal.pk %}">{{ animal.ear_tag_number }}</a></td>
+                    <td>{{ animal.get_sex_display }}</td>
+                    <td>{{ animal.age_display }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'animal_detail' animal.pk %}">Ver</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'animal_edit' animal.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'animal_delete' animal.pk %}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<p>Nenhum animal cadastrado.</p>
+{% endif %}
+{% endblock %}

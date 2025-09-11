@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_edit %}Editar Animal{% else %}Novo Animal{% endif %}{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="h4 mb-4">{% if is_edit %}Editar Animal{% else %}Novo Animal{% endif %}</h1>
+        <form method="post" class="position-relative">
+            {% csrf_token %}
+            {{ form.age }}
+            <input type="text" id="age_display" class="form-control form-control-sm text-muted position-absolute top-0 end-0 w-auto" readonly>
+            <div class="mb-3">
+                {{ form.sex.label_tag }}{{ form.sex }}
+            </div>
+            <div class="mb-3">
+                {{ form.ear_tag_number.label_tag }}{{ form.ear_tag_number }}
+            </div>
+            <div class="mb-3">
+                {{ form.mother_ear_tag_number.label_tag }}{{ form.mother_ear_tag_number }}
+            </div>
+            <div class="mb-3">
+                {{ form.birth_date.label_tag }}{{ form.birth_date }}
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a class="btn btn-secondary" href="{% if is_edit %}{% url 'animal_detail' animal.pk %}{% else %}{% url 'animal_list' %}{% endif %}">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function calcularIdade() {
+        const birthInput = document.getElementById('id_birth_date');
+        const ageInput = document.getElementById('id_age');
+        const ageDisplay = document.getElementById('age_display');
+        if (birthInput && ageInput && ageDisplay && birthInput.value) {
+            const nasc = new Date(birthInput.value);
+            const hoje = new Date();
+            let anos = hoje.getFullYear() - nasc.getFullYear();
+            let meses = hoje.getMonth() - nasc.getMonth();
+            if (hoje.getDate() < nasc.getDate()) {
+                meses -= 1;
+            }
+            if (meses < 0) {
+                anos -= 1;
+                meses += 12;
+            }
+            ageInput.value = anos;
+            ageDisplay.value = anos + ' anos ' + meses + ' meses';
+        } else {
+            ageInput.value = '';
+            if (ageDisplay) ageDisplay.value = '';
+        }
+    }
+    const birthField = document.getElementById('id_birth_date');
+    if (birthField) {
+        birthField.addEventListener('change', calcularIdade);
+        window.addEventListener('load', calcularIdade);
+    }
+</script>
+{% endblock %}

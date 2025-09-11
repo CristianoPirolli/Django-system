@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Excluir Animal{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="h4 mb-3">Excluir Animal</h1>
+        <p>Tem certeza que deseja excluir {{ animal }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <a class="btn btn-secondary" href="{% url 'animal_detail' animal.pk %}">Cancelar</a>
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
