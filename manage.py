@@ -14,4 +14,6 @@ def main():
     execute_from_command_line(sys.argv)
 
 if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        sys.argv += ['runserver', '0.0.0.0:8000']
     main()
