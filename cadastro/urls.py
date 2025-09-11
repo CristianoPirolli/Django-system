@@ -10,4 +10,7 @@ urlpatterns = [
     path('animal/<int:animal_pk>/vaccine/add/', views.vaccine_create, name='vaccine_add'),
     path('animal/<int:animal_pk>/vaccine/<int:pk>/editar/', views.vaccine_edit, name='vaccine_edit'),
     path('animal/<int:animal_pk>/vaccine/<int:pk>/excluir/', views.vaccine_delete, name='vaccine_delete'),
+    path('animal/<int:animal_pk>/weighing/add/', views.weighing_create, name='weighing_add'),
+    path('animal/<int:animal_pk>/weighing/<int:pk>/editar/', views.weighing_edit, name='weighing_edit'),
+    path('animal/<int:animal_pk>/weighing/<int:pk>/excluir/', views.weighing_delete, name='weighing_delete'),
 ]

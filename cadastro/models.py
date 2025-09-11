@@ -13,16 +13,14 @@ class Animal(models.Model):
     ear_tag_number = models.CharField('nº do brinco', max_length=50)
     mother_ear_tag_number = models.CharField('nº do brinco da mãe', max_length=50)
     birth_date = models.DateField('data de nascimento', blank=True, null=True)
-    weight = models.FloatField('peso (kg)', blank=True, null=True)
-    weigh_date = models.DateField('data de pesagem', blank=True, null=True)
 
     def __str__(self):
         return f"{self.ear_tag_number} ({self.get_sex_display()})"
 
-    def age_components(self):
+    def age_components(self, reference_date=None):
         if not self.birth_date:
             return None, None
-        today = date.today()
+        today = reference_date or date.today()
         years = today.year - self.birth_date.year
         months = today.month - self.birth_date.month
         if today.day < self.birth_date.day:
@@ -68,3 +66,22 @@ class Vaccine(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.animal}"
+
+
+class Weighing(models.Model):
+    animal = models.ForeignKey(
+        Animal, on_delete=models.CASCADE, related_name='weighings', verbose_name='animal'
+    )
+    weigh_date = models.DateField('data de pesagem')
+    weight = models.FloatField('peso (kg)')
+    age_years = models.PositiveIntegerField('idade (anos)', blank=True, null=True)
+    age_months = models.PositiveIntegerField('idade (meses)', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        years, months = self.animal.age_components(reference_date=self.weigh_date)
+        self.age_years = years
+        self.age_months = months
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.animal} - {self.weigh_date}"

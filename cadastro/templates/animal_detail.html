@@ -15,10 +15,43 @@
         <p><strong>Nº do brinco:</strong> {{ animal.ear_tag_number }}</p>
         <p><strong>Nº do brinco da mãe:</strong> {{ animal.mother_ear_tag_number }}</p>
         <p><strong>Data de nascimento:</strong> {{ animal.birth_date }}</p>
-        <p><strong>Peso:</strong> {{ animal.weight }} kg</p>
-        <p><strong>Data de pesagem:</strong> {{ animal.weigh_date }}</p>
     </div>
 </div>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2 class="h5 mb-0">Pesagens</h2>
+    <a class="btn btn-sm btn-success" href="{% url 'weighing_add' animal.pk %}">Adicionar Pesagem</a>
+</div>
+{% if weights %}
+<div class="card mb-3">
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Data</th>
+                    <th>Peso (kg)</th>
+                    <th>Idade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for w in weights %}
+                <tr>
+                    <td>{{ w.weigh_date }}</td>
+                    <td>{{ w.weight }}</td>
+                    <td>{{ w.age_years }}a {{ w.age_months }}m</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'weighing_edit' animal.pk w.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'weighing_delete' animal.pk w.pk %}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<p>Nenhuma pesagem registrada.</p>
+{% endif %}
 <div class="d-flex justify-content-between align-items-center mb-2">
     <h2 class="h5 mb-0">Vacinas</h2>
     <a class="btn btn-sm btn-success" href="{% url 'vaccine_add' animal.pk %}">Adicionar Vacina</a>

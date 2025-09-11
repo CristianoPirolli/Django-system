@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Animal, Vaccine
-from .forms import AnimalForm, VaccineForm
+from .models import Animal, Vaccine, Weighing
+from .forms import AnimalForm, VaccineForm, WeighingForm
 
 
 def animal_list(request):
@@ -22,7 +22,12 @@ def animal_create(request):
 def animal_detail(request, pk):
     animal = get_object_or_404(Animal, pk=pk)
     vaccines = animal.vaccine_set.all()
-    return render(request, 'animal_detail.html', {'animal': animal, 'vaccines': vaccines})
+    weights = animal.weighings.all()
+    return render(
+        request,
+        'animal_detail.html',
+        {'animal': animal, 'vaccines': vaccines, 'weights': weights},
+    )
 
 
 def vaccine_create(request, animal_pk):
@@ -57,6 +62,48 @@ def vaccine_delete(request, animal_pk, pk):
         vaccine.delete()
         return redirect('animal_detail', pk=animal_pk)
     return render(request, 'vaccine_confirm_delete.html', {'vaccine': vaccine})
+
+
+def weighing_create(request, animal_pk):
+    animal = get_object_or_404(Animal, pk=animal_pk)
+    if request.method == 'POST':
+        form = WeighingForm(request.POST)
+        if form.is_valid():
+            weighing = form.save(commit=False)
+            weighing.animal = animal
+            weighing.save()
+            return redirect('animal_detail', pk=animal.pk)
+    else:
+        form = WeighingForm()
+    return render(
+        request,
+        'weighing_form.html',
+        {'form': form, 'animal': animal, 'is_edit': False},
+    )
+
+
+def weighing_edit(request, animal_pk, pk):
+    weighing = get_object_or_404(Weighing, pk=pk, animal_id=animal_pk)
+    if request.method == 'POST':
+        form = WeighingForm(request.POST, instance=weighing)
+        if form.is_valid():
+            form.save()
+            return redirect('animal_detail', pk=animal_pk)
+    else:
+        form = WeighingForm(instance=weighing)
+    return render(
+        request,
+        'weighing_form.html',
+        {'form': form, 'animal': weighing.animal, 'is_edit': True},
+    )
+
+
+def weighing_delete(request, animal_pk, pk):
+    weighing = get_object_or_404(Weighing, pk=pk, animal_id=animal_pk)
+    if request.method == 'POST':
+        weighing.delete()
+        return redirect('animal_detail', pk=animal_pk)
+    return render(request, 'weighing_confirm_delete.html', {'weighing': weighing})
 
 
 def animal_edit(request, pk):

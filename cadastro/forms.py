@@ -1,27 +1,37 @@
 from django import forms
-from .models import Animal, Vaccine
+from .models import Animal, Vaccine, Weighing
 
 
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number', 'birth_date', 'weight', 'weigh_date']
+        fields = ['sex', 'age', 'ear_tag_number', 'mother_ear_tag_number', 'birth_date']
         widgets = {
             'sex': forms.Select(attrs={'class': 'form-select'}),
             'age': forms.HiddenInput(),
             'ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'mother_ear_tag_number': forms.TextInput(attrs={'class': 'form-control'}),
             'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'weigh_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
         labels = {
             'sex': 'Sexo',
             'ear_tag_number': 'Nº do brinco',
             'mother_ear_tag_number': 'Nº do brinco da mãe',
             'birth_date': 'Data de nascimento',
+        }
+
+
+class WeighingForm(forms.ModelForm):
+    class Meta:
+        model = Weighing
+        fields = ['weigh_date', 'weight']
+        widgets = {
+            'weigh_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+        }
+        labels = {
+            'weigh_date': 'Data de pesagem',
             'weight': 'Peso (kg)',
-            'weigh_date': 'Data da pesagem',
         }
 
     def clean_weight(self):

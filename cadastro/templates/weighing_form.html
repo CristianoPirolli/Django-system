@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_edit %}Editar Pesagem{% else %}Nova Pesagem{% endif %}{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="h4 mb-4">{% if is_edit %}Editar Pesagem{% else %}Nova Pesagem{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.weigh_date.label_tag }}{{ form.weigh_date }}
+            </div>
+            <div class="mb-3">
+                {{ form.weight.label_tag }}{{ form.weight }}
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a class="btn btn-secondary" href="{% url 'animal_detail' animal.pk %}">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
