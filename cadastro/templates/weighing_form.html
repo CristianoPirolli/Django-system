@@ -14,7 +14,7 @@
                     {{ form.weight.label_tag }}{{ form.weight }}
                 </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 d-flex flex-column flex-sm-row gap-2">
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <a class="btn btn-secondary" href="{% url 'animal_detail' animal.pk %}">Voltar</a>
             </div>

@@ -7,8 +7,10 @@
         <p>Tem certeza que deseja excluir a vacina {{ vaccine.name }} de {{ vaccine.animal }}?</p>
         <form method="post">
             {% csrf_token %}
-            <a class="btn btn-secondary" href="{% url 'animal_detail' vaccine.animal.pk %}">Cancelar</a>
-            <button type="submit" class="btn btn-danger">Excluir</button>
+            <div class="d-flex flex-column flex-sm-row gap-2">
+                <a class="btn btn-secondary" href="{% url 'animal_detail' vaccine.animal.pk %}">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Excluir</button>
+            </div>
         </form>
     </div>
 </div>

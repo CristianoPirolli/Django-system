@@ -22,7 +22,7 @@
                     {{ form.birth_date.label_tag }}{{ form.birth_date }}
                 </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 d-flex flex-column flex-sm-row gap-2">
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <a class="btn btn-secondary" href="{% if is_edit %}{% url 'animal_detail' animal.pk %}{% else %}{% url 'animal_list' %}{% endif %}">Voltar</a>
             </div>
