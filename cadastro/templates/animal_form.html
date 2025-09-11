@@ -4,21 +4,23 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <h1 class="h4 mb-4">{% if is_edit %}Editar Animal{% else %}Novo Animal{% endif %}</h1>
-        <form method="post" class="position-relative">
+        <form method="post">
             {% csrf_token %}
             {{ form.age }}
-            <input type="text" id="age_display" class="form-control form-control-sm text-muted position-absolute top-0 end-0 w-auto" readonly>
-            <div class="mb-3">
-                {{ form.sex.label_tag }}{{ form.sex }}
-            </div>
-            <div class="mb-3">
-                {{ form.ear_tag_number.label_tag }}{{ form.ear_tag_number }}
-            </div>
-            <div class="mb-3">
-                {{ form.mother_ear_tag_number.label_tag }}{{ form.mother_ear_tag_number }}
-            </div>
-            <div class="mb-3">
-                {{ form.birth_date.label_tag }}{{ form.birth_date }}
+            <div id="age_display" class="form-text text-end mb-2"></div>
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    {{ form.sex.label_tag }}{{ form.sex }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {{ form.ear_tag_number.label_tag }}{{ form.ear_tag_number }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {{ form.mother_ear_tag_number.label_tag }}{{ form.mother_ear_tag_number }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {{ form.birth_date.label_tag }}{{ form.birth_date }}
+                </div>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Salvar</button>
@@ -45,10 +47,10 @@
                 meses += 12;
             }
             ageInput.value = anos;
-            ageDisplay.value = anos + ' anos ' + meses + ' meses';
+            ageDisplay.textContent = anos + ' anos ' + meses + ' meses';
         } else {
             ageInput.value = '';
-            if (ageDisplay) ageDisplay.value = '';
+            if (ageDisplay) ageDisplay.textContent = '';
         }
     }
     const birthField = document.getElementById('id_birth_date');
