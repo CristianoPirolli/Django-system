@@ -24,7 +24,8 @@
 {% if weights %}
 <div class="card mb-3">
     <div class="card-body p-0">
-        <table class="table mb-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
             <thead class="table-light">
                 <tr>
                     <th>Data</th>
@@ -40,13 +41,16 @@
                     <td>{{ w.weight }}</td>
                     <td>{{ w.age_years }}a {{ w.age_months }}m</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'weighing_edit' animal.pk w.pk %}">Editar</a>
-                        <a class="btn btn-sm btn-outline-danger" href="{% url 'weighing_delete' animal.pk w.pk %}">Excluir</a>
+                        <a class="btn btn-sm btn-outline-secondary"
+                           href="{% url 'weighing_edit' animal.pk w.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger"
+                           href="{% url 'weighing_delete' animal.pk w.pk %}">Excluir</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 {% else %}
@@ -59,7 +63,8 @@
 {% if vaccines %}
 <div class="card">
     <div class="card-body p-0">
-        <table class="table mb-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
             <thead class="table-light">
                 <tr>
                     <th>Nome</th>
@@ -75,13 +80,16 @@
                     <td>{{ vaccine.application_date }}</td>
                     <td>{% if vaccine.second_dose %}{{ vaccine.second_dose_date }}{% else %}-{% endif %}</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'vaccine_edit' animal.pk vaccine.pk %}">Editar</a>
-                        <a class="btn btn-sm btn-outline-danger" href="{% url 'vaccine_delete' animal.pk vaccine.pk %}">Excluir</a>
+                        <a class="btn btn-sm btn-outline-secondary"
+                           href="{% url 'vaccine_edit' animal.pk vaccine.pk %}">Editar</a>
+                        <a class="btn btn-sm btn-outline-danger"
+                           href="{% url 'vaccine_delete' animal.pk vaccine.pk %}">Excluir</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 {% else %}

@@ -20,3 +20,5 @@ Os registros de animais podem ser consultados, editados e removidos, assim como 
 
 A idade é calculada automaticamente a partir da data de nascimento informada e exibida em anos e meses de forma discreta no formulário.
 Ao cadastrar vacinas, o campo de nome oferece uma lista pré-definida com imunizações bovinas comuns.
+
+As páginas utilizam Bootstrap responsivo, ajustando-se automaticamente para uso confortável em dispositivos móveis.
